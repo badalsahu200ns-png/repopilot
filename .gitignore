@@ -42,3 +42,5 @@ next-env.d.ts
 
 # local persistent development database
 .data/
+
+.env.local
