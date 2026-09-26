@@ -329,4 +329,3 @@ export type AnalyticsEvent =
   | "BOB_REVIEW_REQUESTED"
   | "ACCOUNT_DELETED";
 
-export * from "./compliance";

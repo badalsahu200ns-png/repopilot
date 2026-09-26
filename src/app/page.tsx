@@ -35,12 +35,11 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 no-underline group">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center transition-transform group-hover:scale-105"
-              style={{ backgroundColor: "#0F62FE" }}
-            >
-              <GitBranch size={17} className="text-white" />
-            </div>
+            <img
+              src="/repopilot-logo.svg"
+              alt="RepoPilot logo"
+              className="h-10 w-10 object-contain transition-transform group-hover:scale-105"
+            />
             <span className="font-semibold text-base tracking-tight text-white flex items-center gap-2">
               RepoPilot
               <span
@@ -780,39 +779,61 @@ export default function LandingPage() {
       {/* ── 12. FOOTER ── */}
       <footer className="py-12 border-t border-[#242832] bg-[#08090B]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-2.5">
-              <div
-                className="w-6 h-6 rounded flex items-center justify-center text-white"
-                style={{ backgroundColor: "#0F62FE" }}
-              >
-                <GitBranch size={13} />
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
+              <div className="flex items-center gap-2.5">
+                <div
+                  className="w-6 h-6 rounded flex items-center justify-center text-white"
+                  style={{ backgroundColor: "#0F62FE" }}
+                >
+                  <GitBranch size={13} />
+                </div>
+                <span className="font-semibold text-sm text-white">RepoPilot 2.0</span>
+                <span className="text-[11px] text-[#71717A] ml-2">
+                  Built for the IBM Bob 2.0 Hackathon. Powered by IBM watsonx.
+                </span>
               </div>
-              <span className="font-semibold text-sm text-white">RepoPilot 2.0</span>
-              <span className="text-[11px] text-[#71717A] ml-2">
-                Built for the IBM Bob 2.0 Hackathon. Powered by IBM watsonx.
-              </span>
+
+              <div className="flex items-center gap-6 text-xs text-[#71717A] flex-wrap justify-center">
+                <a href="#features" className="hover:text-white transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F62FE] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08090B] rounded-sm">
+                  Features
+                </a>
+                <a href="#how-it-works" className="hover:text-white transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F62FE] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08090B] rounded-sm">
+                  How it works
+                </a>
+                <a href="#security" className="hover:text-white transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F62FE] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08090B] rounded-sm">
+                  Security
+                </a>
+                <a href="#privacy" className="hover:text-white transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F62FE] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08090B] rounded-sm">
+                  Privacy
+                </a>
+                <Link href="/login" className="hover:text-white transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F62FE] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08090B] rounded-sm">
+                  Sign in
+                </Link>
+                <Link href="/register" className="hover:text-white transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F62FE] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08090B] rounded-sm">
+                  Register
+                </Link>
+              </div>
             </div>
 
-            <div className="flex items-center gap-6 text-xs text-[#71717A]">
-              <a href="#features" className="hover:text-white transition-colors no-underline">
-                Features
-              </a>
-              <a href="#how-it-works" className="hover:text-white transition-colors no-underline">
-                How it works
-              </a>
-              <a href="#security" className="hover:text-white transition-colors no-underline">
-                Security
-              </a>
-              <a href="#privacy" className="hover:text-white transition-colors no-underline">
-                Privacy
-              </a>
-              <Link href="/login" className="hover:text-white transition-colors no-underline">
-                Sign in
-              </Link>
-              <Link href="/register" className="hover:text-white transition-colors no-underline">
-                Register
-              </Link>
+            <div className="border-t border-[#242832] pt-5 text-center sm:text-left">
+              <p className="text-sm text-[#E4E4E7] mb-2">
+                Created by <span className="font-semibold text-white">BADAL KUMAR SAHU</span>
+              </p>
+              <p className="text-sm text-[#A1A1AA] mb-3">
+                Facing an issue or need help? Get in touch.
+              </p>
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-2 text-sm text-[#D4D4D8]">
+                <a href="mailto:badalsahu200ns@gmail.com" className="hover:text-white transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F62FE] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08090B] rounded-sm">
+                  Email
+                </a>
+                <a href="https://www.linkedin.com/in/badalsahu200ns/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F62FE] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08090B] rounded-sm">
+                  LinkedIn
+                </a>
+                <a href="https://github.com/badalsahu200ns-png" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F62FE] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08090B] rounded-sm">
+                  GitHub
+                </a>
+              </div>
             </div>
           </div>
         </div>

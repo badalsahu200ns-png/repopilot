@@ -74,15 +74,6 @@ export interface DbPlan {
   created_at: string;
 }
 
-export interface DbComplianceRecord {
-  id: string;
-  user_id: string;
-  repository_id?: string | null;
-  state: unknown;
-  created_at: string;
-  updated_at: string;
-}
-
 export interface LocalDatabaseSchema {
   users: DbUser[];
   repositories: DbRepository[];
@@ -92,7 +83,6 @@ export interface LocalDatabaseSchema {
   task_plans: DbPlan[];
   conversations: unknown[];
   conversation_messages: unknown[];
-  compliance_records?: DbComplianceRecord[];
 }
 
 const DB_DIR = path.join(process.cwd(), ".data");
@@ -108,7 +98,6 @@ function getDefaultData(): LocalDatabaseSchema {
     task_plans: [],
     conversations: [],
     conversation_messages: [],
-    compliance_records: [],
   };
 }
 
@@ -116,9 +105,6 @@ let inMemoryDb: LocalDatabaseSchema | null = null;
 
 export function getLocalDb(): LocalDatabaseSchema {
   if (inMemoryDb) {
-    if (!inMemoryDb.compliance_records) {
-      inMemoryDb.compliance_records = [];
-    }
     return inMemoryDb;
   }
 
@@ -128,11 +114,7 @@ export function getLocalDb(): LocalDatabaseSchema {
     }
 
     if (fs.existsSync(DB_FILE)) {
-      const raw = fs.readFileSync(DB_FILE, "utf-8");
-      inMemoryDb = JSON.parse(raw);
-      if (!inMemoryDb!.compliance_records) {
-        inMemoryDb!.compliance_records = [];
-      }
+      inMemoryDb = JSON.parse(fs.readFileSync(DB_FILE, "utf-8"));
     } else {
       inMemoryDb = getDefaultData();
       fs.writeFileSync(DB_FILE, JSON.stringify(inMemoryDb, null, 2), "utf-8");
@@ -140,10 +122,6 @@ export function getLocalDb(): LocalDatabaseSchema {
   } catch (err) {
     console.warn("[LocalDb] Failed to read disk DB, initializing memory store:", err);
     inMemoryDb = inMemoryDb || getDefaultData();
-  }
-
-  if (!inMemoryDb!.compliance_records) {
-    inMemoryDb!.compliance_records = [];
   }
 
   return inMemoryDb!;

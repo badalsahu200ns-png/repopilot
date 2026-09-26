@@ -53,7 +53,6 @@ repopilot/
 │   │   │   ├── repositories/       # Repo list, connect, X-Ray, Q&A
 │   │   │   │   └── [id]/ask/       # Evidence-backed codebase Q&A
 │   │   │   ├── tasks/              # Task list, create, detail + plan
-│   │   │   ├── compliance/         # Hackathon Readiness checklist
 │   │   │   ├── explore/            # Explore (stub)
 │   │   │   └── ask/                # Cross-repo Q&A selector
 │   │   ├── api/
@@ -61,7 +60,6 @@ repopilot/
 │   │   │   ├── repositories/       # connect, list, analyze, ask
 │   │   │   ├── tasks/              # create, list, plan
 │   │   │   ├── bob/                # IBM watsonx / Bob gateway
-│   │   │   ├── compliance/         # state, scan, upload, export, datasources
 │   │   │   └── health/             # health check
 │   │   ├── login/                  # Sign-in page
 │   │   ├── register/               # Sign-up page
@@ -78,8 +76,6 @@ repopilot/
 │   │   │   └── localDb.ts          # JSON-file dev store + in-memory cache
 │   │   ├── github/
 │   │   │   └── client.ts           # Token lookup, profile fetch, repo access check
-│   │   ├── compliance/
-│   │   │   └── service.ts          # bob_sessions scan, screenshot save, evaluation, report
 │   │   ├── supabase/
 │   │   │   ├── server.ts           # Dual-mode client (Supabase or local adapter)
 │   │   │   ├── client.ts           # Browser Supabase client
@@ -87,8 +83,7 @@ repopilot/
 │   │   └── utils.ts                # Formatting, classification, styling helpers
 │   ├── proxy.ts                    # Next.js middleware — route protection + auth redirects
 │   └── types/
-│       ├── index.ts                # Core domain interfaces
-│       └── compliance.ts           # Hackathon compliance types
+│       └── index.ts                # Core domain interfaces
 ├── supabase/
 │   └── schema.sql                  # PostgreSQL schema, RLS policies, pgvector function
 ├── bob_sessions/                   # Bob IDE session screenshots (PNG files go here)
@@ -108,7 +103,7 @@ repopilot/
 - **Dual-mode**: Supabase Auth when real credentials configured; local PBKDF2 + HMAC-SHA256 JWT when not
 - **GitHub OAuth 2.0**: fully implemented — `GET /api/auth/github/start` (redirect) → `GET /api/auth/github/callback` (code exchange, profile fetch, upsert user, issue session)
 - **Session cookie**: `repopilot_session` — httpOnly, SameSite=Lax, 7-day expiry
-- **Middleware guard**: `src/proxy.ts` protects `/dashboard`, `/repositories`, `/tasks`, `/ask`, `/onboarding`, `/compliance`, `/verification`, `/settings`, `/activity`
+- **Middleware guard**: `src/proxy.ts` protects `/dashboard`, `/repositories`, `/tasks`, `/ask`, `/onboarding`, `/verification`, `/settings`, `/activity`
 - OAuth scopes requested: `read:user user:email repo`
 
 ### GitHub Integration
@@ -175,31 +170,13 @@ Names only — values must never appear in any file, log, or output.
 7. **Preserve TypeScript strictness.** No `any` unless the existing code already uses it at that location. Prefer typed interfaces.
 8. **Prefer small, targeted changes.** Edit only the files necessary to accomplish the task. Do not clean up unrelated code.
 9. **Test changes before considering a task complete.** At minimum: `npx tsc --noEmit` and `npm run lint`. If a test file exists, run it.
-10. **Do not fabricate hackathon evidence.** Do not programmatically set compliance fields to "verified" without real underlying evidence. Do not generate fake screenshots or fake session records.
+10. **Do not fabricate evidence.** Do not programmatically set verification fields to "verified" without real underlying evidence.
 
 ---
 
 ## Hackathon Evidence Principles
 
 The IBM Bob 2.0 Hackathon requires **genuine** Bob IDE usage evidence.
-
-RepoPilot tracks the following in `/compliance`:
-
-- Bob IDE usage (version, date, tasks completed)
-- `bob_sessions/` folder — PNG screenshots from Bob sessions
-- Bob session screenshot metadata (task name, date, description)
-- Data source verification checklist
-- Bobcoin budget usage
-- IBMid / hackathon email verification
-- Bob version compliance
-
-**Rules:**
-
-- Evidence must be based on actual Bob IDE tasks and real screenshots
-- Do not write code that automatically marks compliance items as "verified" without genuine verification
-- Do not generate, synthesize, or auto-populate screenshot files
-- Do not claim IBMid match status without the user explicitly confirming it
-- The compliance UI is a tracking tool, not an auto-approver
 
 ---
 
@@ -213,7 +190,6 @@ These are **known issues** — do not attempt to fix them unless the current tas
 4. **Embedding column exists but semantic search is not implemented.** The `vector(768)` column and `search_repository_files` RPC are defined in the schema but no code path generates or stores embeddings. Semantic file search is non-functional.
 5. **Analysis pipeline runs inline.** The repository analysis `runAnalysisPipeline()` is an un-awaited Promise inside an API route handler. A server restart mid-analysis will orphan the job with status "running".
 6. **No test suite.** There is no Jest, Vitest, or Playwright configuration. TypeScript compile and ESLint are the only automated checks.
-7. **`compliance_records` table is absent from `supabase/schema.sql`.** The compliance API writes to this table, but it is not in the schema file. A fresh Supabase deploy must add this table manually before compliance state can be persisted.
-8. **File analysis capped at 2,000 files.** Large repositories have file metadata truncated at 2,000 paths to avoid database timeouts.
+7. **File analysis capped at 2,000 files.** Large repositories have file metadata truncated at 2,000 paths to avoid database timeouts.
 
 <!-- END:repopilot-project-context -->

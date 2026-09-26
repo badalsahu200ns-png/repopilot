@@ -112,9 +112,6 @@ Final workflow stage — verify the change is complete:
 - Acceptance criteria tracker
 - Contribution summary generation
 
-### 8. Hackathon Readiness
-Compliance checker for IBM Bob 2.0 Hackathon submission requirements.
-
 ---
 
 ## Architecture
@@ -140,7 +137,6 @@ repopilot/
 │   │   │   │   ├── page.tsx              # Task list (Bob Tasks)
 │   │   │   │   ├── new/page.tsx          # Create task + IBM Bob workflow ⭐
 │   │   │   │   └── [id]/page.tsx         # Task detail with plan steps
-│   │   │   └── compliance/page.tsx       # Hackathon readiness
 │   │   ├── api/
 │   │   │   ├── repositories/
 │   │   │   │   ├── route.ts              # Connect/list repositories

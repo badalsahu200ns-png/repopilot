@@ -31,7 +31,6 @@ export async function proxy(request: NextRequest) {
     "/verification",
     "/settings",
     "/activity",
-    "/compliance",
   ];
 
   if (!user && protectedPrefixes.some((prefix) => path.startsWith(prefix))) {

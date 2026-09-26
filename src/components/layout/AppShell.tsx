@@ -8,7 +8,7 @@ import { createClient } from "@/lib/supabase/client";
 import {
   GitBranch, LayoutDashboard, FolderGit2,
   CheckSquare, LogOut, ChevronLeft,
-  ChevronRight, Bell, Cpu, Menu, X, ShieldCheck,
+  ChevronRight, Bell, Cpu, Menu, X,
   Zap, BadgeCheck
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -17,7 +17,6 @@ const NAV_ITEMS = [
   { href: "/dashboard",      icon: LayoutDashboard, label: "Overview" },
   { href: "/repositories",   icon: FolderGit2,      label: "Repositories" },
   { href: "/tasks",          icon: CheckSquare,      label: "Bob Tasks" },
-  { href: "/compliance",     icon: ShieldCheck,      label: "Hackathon Readiness" },
 ];
 
 function NavItem({ href, icon: Icon, label, collapsed, active }: {
@@ -58,9 +57,11 @@ export default function AppShell({ children, user }: { children: React.ReactNode
       {/* Logo */}
       <div className={cn("flex items-center gap-2.5 px-3 py-4 border-b", collapsed && "justify-center")}
         style={{ borderColor: "var(--color-border-default)" }}>
-        <div className="w-8 h-8 rounded-lg gradient-accent flex items-center justify-center flex-shrink-0">
-          <GitBranch size={16} className="text-white" />
-        </div>
+        <img
+          src="/repopilot-logo.svg"
+          alt="RepoPilot logo"
+          className={cn("flex-shrink-0 object-contain", collapsed ? "h-7 w-7" : "h-8 w-8")}
+        />
         {!collapsed && (
           <div>
             <div className="font-bold text-sm leading-none" style={{ color: "var(--color-text-primary)" }}>RepoPilot</div>
@@ -92,9 +93,6 @@ export default function AppShell({ children, user }: { children: React.ReactNode
             </Link>
             <Link href="/tasks" className="inline-flex items-center gap-1 text-[11px] font-medium no-underline hover:underline" style={{ color: "var(--color-accent-hover)" }}>
               <BadgeCheck size={11} /> Bob Tasks →
-            </Link>
-            <Link href="/compliance" className="inline-flex items-center gap-1 text-[11px] font-medium no-underline hover:underline" style={{ color: "var(--color-accent-hover)" }}>
-              <ShieldCheck size={11} /> Hackathon Readiness →
             </Link>
           </div>
         </div>
@@ -211,6 +209,28 @@ export default function AppShell({ children, user }: { children: React.ReactNode
         <main className="flex-1 overflow-y-auto">
           {children}
         </main>
+
+        <footer className="border-t" style={{ borderColor: "var(--color-border-default)", background: "var(--color-bg-elevated)" }}>
+          <div className="px-4 py-3 text-center sm:text-left">
+            <p className="text-caption mb-1" style={{ color: "var(--color-text-secondary)" }}>
+              Created by <span className="font-semibold" style={{ color: "var(--color-text-primary)" }}>BADAL KUMAR SAHU</span>
+            </p>
+            <p className="text-caption mb-2" style={{ color: "var(--color-text-tertiary)" }}>
+              Facing an issue or need help? Get in touch.
+            </p>
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 text-caption">
+              <a href="mailto:badalsahu200ns@gmail.com" className="transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-hover)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-elevated)] rounded-sm" style={{ color: "var(--color-accent-hover)" }}>
+                Email
+              </a>
+              <a href="https://www.linkedin.com/in/badalsahu200ns/" target="_blank" rel="noopener noreferrer" className="transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-hover)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-elevated)] rounded-sm" style={{ color: "var(--color-accent-hover)" }}>
+                LinkedIn
+              </a>
+              <a href="https://github.com/badalsahu200ns-png" target="_blank" rel="noopener noreferrer" className="transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-hover)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-elevated)] rounded-sm" style={{ color: "var(--color-accent-hover)" }}>
+                GitHub
+              </a>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );

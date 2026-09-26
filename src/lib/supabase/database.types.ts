@@ -341,30 +341,6 @@ export type Database = {
           }
         ];
       };
-      compliance_records: {
-        Row: {
-          id:         string;
-          user_id:    string;
-          state:      Json;
-          created_at: string;
-          updated_at: string;
-        };
-        Insert: {
-          id?:         string;
-          user_id:     string;
-          state?:      Json;
-          created_at?: string;
-          updated_at?: string;
-        };
-        Update: {
-          id?:         string;
-          user_id?:    string;
-          state?:      Json;
-          created_at?: string;
-          updated_at?: string;
-        };
-        Relationships: [];
-      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

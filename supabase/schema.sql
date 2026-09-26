@@ -179,22 +179,3 @@ LANGUAGE SQL STABLE AS $$
   LIMIT p_match_count;
 $$;
 
--- ── compliance_records ───────────────────────────────────────
-CREATE TABLE IF NOT EXISTS public.compliance_records (
-  id         UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id    UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  state      JSONB NOT NULL DEFAULT '{}',
-  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  UNIQUE (user_id)
-);
-
-CREATE TRIGGER compliance_records_updated_at
-  BEFORE UPDATE ON public.compliance_records
-  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
-
-ALTER TABLE public.compliance_records ENABLE ROW LEVEL SECURITY;
-
--- Users can only access their own compliance record
-CREATE POLICY "Users own compliance records" ON public.compliance_records
-  FOR ALL USING (auth.uid() = user_id);

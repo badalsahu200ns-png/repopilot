@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { FolderGit2, Plus, ArrowRight, CheckSquare, Cpu, ShieldCheck } from "lucide-react";
+import { FolderGit2, Plus, ArrowRight, CheckSquare, Cpu } from "lucide-react";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -42,13 +42,12 @@ export default async function DashboardPage() {
       </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
         {[
-          { href: "/compliance",       icon: ShieldCheck, label: "Hackathon Readiness", accent: true },
-          { href: "/repositories/new", icon: Plus,        label: "Connect Repository",  accent: false },
-          { href: "/tasks/new",        icon: CheckSquare, label: "New Task",            accent: false },
-          { href: "/repositories",     icon: FolderGit2,  label: "All Repositories",    accent: false },
-          { href: "/tasks",            icon: CheckSquare, label: "All Tasks",           accent: false },
+          { href: "/repositories/new", icon: Plus,        label: "Connect Repository", accent: false },
+          { href: "/tasks/new",        icon: CheckSquare, label: "New Task",          accent: false },
+          { href: "/repositories",     icon: FolderGit2,  label: "All Repositories",  accent: false },
+          { href: "/tasks",            icon: CheckSquare, label: "All Tasks",         accent: false },
         ].map((action) => (
           <Link key={action.href} href={action.href}
             className={`card card-interactive flex items-center gap-3 p-4 no-underline ${action.accent ? "border-indigo-500/30" : ""}`}
@@ -79,9 +78,6 @@ export default async function DashboardPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Link href="/compliance" className="btn btn-secondary btn-sm gap-1.5">
-            <ShieldCheck size={13} /> Hackathon Readiness
-          </Link>
           <Link href="/tasks/new" className="btn btn-primary btn-sm gap-1.5">
             New Task <ArrowRight size={13} />
           </Link>
